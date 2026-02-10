@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="788.0" prefWidth="1422.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amitron.quoteapp.controller.PrimaryController">
+ 
+    <!-- ================= TOP BAR ================= -->
+    <top>
+        <HBox prefHeight="35" style="-fx-background-color: #331a00;">
+            <Label prefHeight="35" prefWidth="361.0" style="-fx-padding: 0 10 0 10;" text="Integr8tor Job Submit" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="20.0" />
+                </font>
+            </Label>
+         <Region prefHeight="35.0" prefWidth="364.0" HBox.hgrow="ALWAYS" />
+         <ImageView fitHeight="38.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@icons/amitron.png" />
+            </image>
+         </ImageView>
+        </HBox>
+    </top>
+
+    <!-- ================= LEFT MENU ================= -->
+    <left>
+        <VBox alignment="TOP_CENTER" prefWidth="45" spacing="10" style="-fx-background-color: #331a00;">
+                <padding>
+                    <Insets bottom="10" left="10" right="10" top="10" />
+                </padding>
+
+            <!-- ADD ICON -->
+            <Button fx:id="addButton" onAction="#onAddClicked" style="-fx-background-color: #331a00;" styleClass="icon-button">
+                <graphic>
+                    <ImageView fitHeight="20" fitWidth="100" preserveRatio="true" scaleX="1" scaleY="1">
+                        <image>
+                            <Image url="@icons/add_new.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip style="@style.css" text="Submit new job to I8" /> 
+                </tooltip>
+            </Button>
+            
+            <!-- COPY ICON -->
+            <Button fx:id="copyButton" onAction="#onCopyClicked" style="-fx-background-color: #331a00;" styleClass="icon-button">
+                <graphic>
+                    <ImageView fitHeight="20" fitWidth="100" preserveRatio="true" scaleX="1" scaleY="1">
+                        <image>
+                            <Image url="@icons/copy.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip style="@style.css" text="Copy Report to quote structured folder" /> 
+                </tooltip>
+            </Button>
+            
+            <!-- COPY DELETE -->
+            <Button fx:id="deleteButton" onAction="#onDeleteClicked" style="-fx-background-color: #331a00;" styleClass="icon-button">
+                <graphic>
+                    <ImageView fitHeight="20" fitWidth="100" preserveRatio="true" scaleX="1" scaleY="1">
+                        <image>
+                            <Image url="@icons/delete.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip style="@style.css" text="Delete selected data from DB" /> 
+                </tooltip>
+            </Button>
+
+        </VBox>
+    </left>
+
+    <!-- ================= CENTER ================= -->
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+
+            <!-- INPUT FORM (HIDDEN INITIALLY) -->
+            <VBox fx:id="formPane" managed="false" spacing="8" styleClass="form-panel" visible="false">
+
+                <HBox spacing="10">
+                    <Button fx:id="browse" onAction="#onBrowseClicked" text="Browse Data" />
+                    <TextField fx:id="selectedFile"
+                        editable="false"
+                        promptText="Drag &amp; drop zip/tgz here or click Browse"
+                        onDragOver="#onDragOver"
+                        onDragDropped="#onDragDropped" HBox.hgrow="ALWAYS"/>
+                    <!--<TextField fx:id="selectedFile" promptText="Selected file path" HBox.hgrow="ALWAYS" />-->
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label text="Customer Name" />
+                    <TextField fx:id="custName" HBox.hgrow="ALWAYS" />
+
+                    <Label text="Customer Code" />
+                    <TextField fx:id="custCode" prefWidth="120" />
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label text="FreshDesk #" />
+                    <TextField fx:id="fdId" prefWidth="120" />
+
+                    <Label text="Part Number" />
+                    <TextField fx:id="partNo" prefWidth="200" />
+
+                    <CheckBox fx:id="isItar" text="ITAR" />
+                </HBox>
+                <HBox alignment="TOP_CENTER" prefWidth="100">
+                   <Button fx:id="submit" onAction="#onSubmitClicked" prefWidth="150.0" style="-fx-background-color: #ED9437;" text="Submit" textFill="WHITE">
+                        <font>
+                             <Font name="System Bold" size="15" />
+                         </font>
+                    </Button>
+                </HBox>
+            </VBox>
+
+            <!-- TABLE -->
+            <TableView fx:id="table"
+                        VBox.vgrow="ALWAYS">
+                 <columns>
+                     <TableColumn fx:id="colI8" prefWidth="150" text="I8 ID"/>
+                     <TableColumn fx:id="colFD" prefWidth="150" text="FreshDesk #"/>
+                     <TableColumn fx:id="colCustName" prefWidth="200" text="Customer Name"/>
+                     <TableColumn fx:id="colCustCode" prefWidth="150" text="Customer Code"/>
+                     <TableColumn fx:id="colOrig" prefWidth="200" text="Original Data"/>
+                     <TableColumn fx:id="colPart" prefWidth="200" text="Part Number"/>
+                     <TableColumn fx:id="colItar" prefWidth="150" text="ITAR"/>
+                     <TableColumn fx:id="colProg" prefWidth="150" text="Progress"/>
+                     <TableColumn fx:id="colTime" prefWidth="150" text="Submitted Time"/>
+                 </columns>
+             </TableView>
+
+        </VBox>
+    </center>
+
+</BorderPane>
