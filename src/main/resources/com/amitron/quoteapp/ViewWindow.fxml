@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.amitron.quoteapp.controller.ViewController">
+
+    <center>
+        <TabPane fx:id="mainTabPane">
+
+            <tabs>
+                
+                <!-- Optimizer TAB -->
+                <Tab fx:id="panelOptimizeTab" text="Panel Optimize" closable="false">
+                    <AnchorPane fx:id="optimizerContainer" />
+                </Tab>
+                
+                <!-- I8Data TAB -->
+                <Tab fx:id="i8DataTab" text="I8 Data" closable="false">
+                    <!-- Content later -->
+                </Tab>
+                
+                <!-- PDF TAB -->
+                <Tab fx:id="pdfViewerTab" text="I8 Report" closable="false">
+                </Tab>
+                
+            </tabs>
+
+        </TabPane>
+    </center>
+
+</BorderPane>

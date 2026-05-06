@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.amitron.quoteapp.controller.QuoteOptimizerController">
+
+    <!-- LEFT INPUT PANEL -->
+    <left>
+        <ScrollPane prefWidth="350" fitToWidth="true">
+
+            <VBox spacing="12">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+
+                <HBox spacing="10">
+                    <Label text="Unit"/>
+                    <ComboBox fx:id="unitCombo"/>
+                    <CheckBox fx:id="rotationCheck" text="Mixed Rotation Allowed"/>
+                </HBox>
+
+                <!-- PANEL DEFINITION -->
+                <TitledPane text="Panel Definition" expanded="true">
+
+                    <GridPane hgap="8" vgap="8">
+
+                        <columnConstraints>
+                            <ColumnConstraints prefWidth="110"/>
+                            <ColumnConstraints prefWidth="70"/>
+                            <ColumnConstraints prefWidth="110"/>
+                            <ColumnConstraints prefWidth="70"/>
+                        </columnConstraints>
+
+                        <Label text="Panel Width" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="panelWField" GridPane.rowIndex="0" GridPane.columnIndex="1" text="18"/>
+
+                        <Label text="Panel Height" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <TextField fx:id="panelHField" GridPane.rowIndex="0" GridPane.columnIndex="3" text="24"/>
+
+                        <Label text="Border Left" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="borderLeftField" GridPane.rowIndex="1" GridPane.columnIndex="1" text="0.65"/>
+
+                        <Label text="Border Right" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <TextField fx:id="borderRightField" GridPane.rowIndex="1" GridPane.columnIndex="3" text="0.65"/>
+
+                        <Label text="Border Top" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="borderTopField" GridPane.rowIndex="2" GridPane.columnIndex="1" text="0.65"/>
+
+                        <Label text="Border Bottom" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                        <TextField fx:id="borderBottomField" GridPane.rowIndex="2" GridPane.columnIndex="3" text="0.65"/>
+
+                    </GridPane>
+
+                </TitledPane>
+
+                <!-- BOARD DEFINITION -->
+                <TitledPane text="Board Definition" expanded="true">
+
+                    <VBox spacing="10">
+
+                        <GridPane hgap="8" vgap="8">
+
+                            <columnConstraints>
+                                <ColumnConstraints prefWidth="110"/>
+                                <ColumnConstraints prefWidth="70"/>
+                                <ColumnConstraints prefWidth="110"/>
+                                <ColumnConstraints prefWidth="70"/>
+                            </columnConstraints>
+
+                            <Label text="Board Width" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="boardWField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                            <Label text="Board Height" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                            <TextField fx:id="boardHField" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                            <Label text="Gap X" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="gapXField" GridPane.rowIndex="1" GridPane.columnIndex="1" text="0.3"/>
+
+                            <Label text="Gap Y" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                            <TextField fx:id="gapYField" GridPane.rowIndex="1" GridPane.columnIndex="3" text="0.3"/>
+
+                        </GridPane>
+
+                        <HBox spacing="20">
+                            <RadioButton fx:id="singleRadio" text="Single PCB"/>
+                            <RadioButton fx:id="arrayRadio" text="Array / Customer Panel"/>
+                        </HBox>
+
+                    </VBox>
+
+                </TitledPane>
+                
+                <!-- ARRAY DEFINITION -->
+                <TitledPane fx:id="arrayPane" text="Array Definition" expanded="true" visible="false" managed="false" >
+                  
+                    <VBox spacing="10">
+                        
+                        <VBox spacing="20">
+                            <RadioButton fx:id="custArrayRadio" text="Customer Array"/>
+                            <RadioButton fx:id="proposedScoredArrayRadio" text="Proposed Scored Array"/>
+                            <RadioButton fx:id="proposedRoutedArrayRadio" text="Proposed Routed Array"/>
+                        </VBox>
+
+                        <GridPane hgap="8" vgap="8">
+
+                            <columnConstraints>
+                                <ColumnConstraints prefWidth="120"/>
+                                <ColumnConstraints prefWidth="80"/>
+                                <ColumnConstraints prefWidth="120"/>
+                                <ColumnConstraints prefWidth="80"/>
+                            </columnConstraints>
+                            
+                            <Label text="PCB Width" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="pcbWField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                            <Label text="PCB Height" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                            <TextField fx:id="pcbHField" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                            <Label text="Count X" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="countXField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Count Y" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                            <TextField fx:id="countYField" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                            <Label text="Gap X" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="arrayGapXField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="Gap Y" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                            <TextField fx:id="arrayGapYField" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                            <Label text="Rail Left" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <TextField fx:id="railLeftField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label text="Rail Right" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                            <TextField fx:id="railRightField" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+                            <Label text="Rail Top" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <TextField fx:id="railTopField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                            <Label text="Rail Bottom" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+                            <TextField fx:id="railBottomField" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+
+                        </GridPane>
+
+                        <Button fx:id="calcArrayBtn"
+                                text="Calculate Array Size"/>
+
+                    </VBox>
+
+                </TitledPane>
+
+                <!-- OPTIMIZE BUTTON -->
+                <Button fx:id="optimizeBtn" text="Optimize"/>
+
+            </VBox>
+
+        </ScrollPane>
+    </left>
+
+    <!-- CENTER PANEL DRAWING -->
+    <center>
+
+        <StackPane>
+            <padding>
+                <Insets top="10"/>
+            </padding>
+
+            <Canvas fx:id="panelCanvas" width="650" height="550"/>
+
+        </StackPane>
+
+    </center>
+
+    <!-- RIGHT INFORMATION PANEL -->
+    <right>
+
+        <VBox spacing="8" prefWidth="250">
+
+            <padding>
+                <Insets top="10" right="10"/>
+            </padding>
+
+            <Label text="Layout" style="-fx-font-weight:bold"/>
+            <Label fx:id="layoutLabel"/>
+
+            <Separator/>
+
+            <Label text="Size" style="-fx-font-weight:bold"/>
+            <Label fx:id="sizeLabel"/>
+
+            <Separator/>
+
+            <Label text="Panel Yield" style="-fx-font-weight:bold"/>
+            <Label fx:id="yieldLabel"/>
+
+            <Separator/>
+
+            <Label text="Matrix" style="-fx-font-weight:bold"/>
+            <Label fx:id="matrixLabel"/>
+
+            <Separator/>
+
+            <Label text="Spacing" style="-fx-font-weight:bold"/>
+            <Label fx:id="spacingLabel"/>
+
+            <Separator/>
+
+            <Label text="Panel Borders" style="-fx-font-weight:bold"/>
+            <Label fx:id="panelBorderLabel"/>
+
+            <Separator/>
+
+            <Label text="Array Borders" style="-fx-font-weight:bold"/>
+            <Label fx:id="arrayBorderLabel"/>
+
+        </VBox>
+
+    </right>
+
+    <!-- BOTTOM STATUS -->
+    <bottom>
+
+        <HBox spacing="20" alignment="CENTER_LEFT">
+
+            <padding>
+                <Insets top="10" left="10"/>
+            </padding>
+
+            <Label fx:id="statusLabel"
+                   text="Boards: 0 | Utilization: 0%"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button fx:id="savePdfBtn" text="Save PDF"/>
+
+        </HBox>
+
+    </bottom>
+
+</BorderPane>

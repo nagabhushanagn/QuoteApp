@@ -29,17 +29,23 @@ public class App extends Application {
         CookieManager cookieManager = new CookieManager();
         CookieHandler.setDefault(cookieManager);
         autoRefreshScheduler = new AutoRefreshScheduler();
-        FXMLLoader fxmlLoader =
-            new FXMLLoader(App.class.getResource("/com/amitron/quoteapp/primary.fxml"));
-        
+        FXMLLoader fxmlLoader
+                = new FXMLLoader(App.class.getResource("/com/amitron/quoteapp/primary.fxml"));
+
         Parent loader = fxmlLoader.load();
         primaryController = fxmlLoader.getController();
-        
+
         scene = new Scene(loader);
+
+        //ADD CSS HERE
+        scene.getStylesheets().add(
+                getClass().getResource("/com/amitron/quoteapp/style.css").toExternalForm()
+        );
+
         stage.setScene(scene);
-        stage.setTitle("Quote Application V1.0");
+        stage.setTitle("Quote Application V1.11");
         stage.show();
-        
+
         //Auto refresh
         autoRefreshScheduler.start(() -> {
 
@@ -75,14 +81,13 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-    
+
     @Override
     public void stop() throws Exception {
-        
+
         if (autoRefreshScheduler != null) {
             autoRefreshScheduler.stop();
         }
     }
-
 
 }

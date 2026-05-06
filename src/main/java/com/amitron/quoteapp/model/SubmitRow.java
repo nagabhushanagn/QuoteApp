@@ -12,6 +12,7 @@ import javafx.beans.property.*;
  */
 public class SubmitRow {
 
+    private final IntegerProperty rowId = new SimpleIntegerProperty();
     private final IntegerProperty i8Id = new SimpleIntegerProperty();
     private final ObjectProperty<Integer> freshdeskId = new SimpleObjectProperty<>();
     private final StringProperty customerName = new SimpleStringProperty();
@@ -22,11 +23,12 @@ public class SubmitRow {
     private final StringProperty progress = new SimpleStringProperty();
     private final StringProperty submitTime = new SimpleStringProperty();
 
-    public SubmitRow(int i8Id, Integer freshdeskId, String customerName,
+    public SubmitRow(int rowId, int i8Id, Integer freshdeskId, String customerName,
                      String customerCode, String originalData,
                      String partNumber, boolean itar,
                      String progress, String submitTime) {
 
+        this.rowId.set(rowId);
         this.i8Id.set(i8Id);
         this.freshdeskId.set(freshdeskId);
         this.customerName.set(customerName);
@@ -38,6 +40,7 @@ public class SubmitRow {
         this.submitTime.set(submitTime);
     }
 
+    public IntegerProperty rowIdProperty() { return rowId; }
     public IntegerProperty i8IdProperty() { return i8Id; }
     public ObjectProperty<Integer> freshdeskIdProperty() { return freshdeskId; }
     public StringProperty customerNameProperty() { return customerName; }
@@ -47,4 +50,6 @@ public class SubmitRow {
     public BooleanProperty itarProperty() { return itar; }
     public StringProperty progressProperty() { return progress; }
     public StringProperty submitTimeProperty() { return submitTime; }
+    
+    public int getRowId() { return rowId.get(); }
 }

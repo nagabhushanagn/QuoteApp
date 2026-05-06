@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fx:id="rootPane" fitToWidth="true"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.amitron.quoteapp.controller.I8DataController">
+
+    <content>
+        <HBox spacing="20" style="-fx-padding: 15;">
+
+            <!-- ================= COLUMN 1 ================= -->
+            <VBox spacing="20" HBox.hgrow="ALWAYS">
+
+                <TitledPane fx:id="partInformation" text="Part Information" expanded="true">
+                    <content>
+                        <GridPane hgap="10" vgap="8">
+                            <Label text="Customer Code"/>
+                            <TextField fx:id="customerCodeField" GridPane.columnIndex="1"/>
+
+                            <Label text="Customer Name" GridPane.rowIndex="1"/>
+                            <TextField fx:id="customerNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Quote #" GridPane.rowIndex="2"/>
+                            <TextField fx:id="quoteField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="Part #" GridPane.rowIndex="3"/>
+                            <TextField fx:id="partField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label text="Revision" GridPane.rowIndex="4"/>
+                            <TextField fx:id="revisionField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Pcb width" GridPane.rowIndex="5"/>
+                            <TextField fx:id="pcbWidth" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Pcb Height" GridPane.rowIndex="6"/>
+                            <TextField fx:id="pcbHeight" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Array Width" GridPane.rowIndex="7"/>
+                            <TextField fx:id="arrayWidth" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Array Height" GridPane.rowIndex="8"/>
+                            <TextField fx:id="arrayHeight" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                            
+                            <Label text="# Up Per Panel" GridPane.rowIndex="9"/>
+                            <TextField fx:id="upPerPanelField" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+
+                            <Label text="# Up per Array" GridPane.rowIndex="10"/>
+                            <TextField fx:id="upPerArrayField" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+
+                            <Label text="X-Out Allowed" GridPane.rowIndex="11"/>
+                            <ComboBox fx:id="xOutAllowedCombo" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+
+                            <Label text="Amortize?" GridPane.rowIndex="12"/>
+                            <ComboBox fx:id="amortizeCombo" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+
+                            <Label text="Stencils" GridPane.rowIndex="13"/>
+                            <ComboBox fx:id="stencilsCombo" GridPane.rowIndex="13" GridPane.columnIndex="1"/>
+
+                            <Label text="Panel Size" GridPane.rowIndex="14"/>
+                            <TextField fx:id="panelSizeField" GridPane.rowIndex="14" GridPane.columnIndex="1"/>
+
+                            <Label text="Utilization%" GridPane.rowIndex="15"/>
+                            <TextField fx:id="utilizationField" GridPane.rowIndex="15" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+
+                <TitledPane fx:id="copperWeight" text="Copper Weight" expanded="true">
+                    <content>
+                        <GridPane hgap="10" vgap="8">
+                            <Label text="2 Oz Layers"/>
+                            <ComboBox fx:id="twoOzLayersCombo" GridPane.columnIndex="1"/>
+
+                            <Label text="3 Oz Layers" GridPane.rowIndex="1"/>
+                            <ComboBox fx:id="threeOzLayersCombo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="4 Oz Layers" GridPane.rowIndex="2"/>
+                            <ComboBox fx:id="fourOzLayersCombo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="5 Oz Layers" GridPane.rowIndex="3"/>
+                            <ComboBox fx:id="fiveOzLayersCombo" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label text="6 Oz Layers" GridPane.rowIndex="4"/>
+                            <ComboBox fx:id="sixOzLayersCombo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                            <Label text="Uneven Copper" GridPane.rowIndex="5"/>
+                            <ComboBox fx:id="unevenCopperCombo" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                            <Label text="Extra Copper" GridPane.rowIndex="6"/>
+                            <ComboBox fx:id="extraCopperCombo" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+
+            </VBox>
+
+            <!-- ================= COLUMN 2 ================= -->
+            <VBox spacing="20" HBox.hgrow="ALWAYS">
+
+                <TitledPane fx:id="basicInformation" text="Basic Information" expanded="true">
+                    <content>
+                        <GridPane hgap="10" vgap="8">
+                            <Label text="Layer Count"/>
+                            <ComboBox fx:id="layerCountCombo" GridPane.columnIndex="1"/>
+
+                            <Label text="Construction" GridPane.rowIndex="1"/>
+                            <ComboBox fx:id="constructionCombo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Material Type" GridPane.rowIndex="2"/>
+                            <ComboBox fx:id="materialTypeCombo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="Thickness" GridPane.rowIndex="3"/>
+                            <TextField fx:id="thicknessField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label text="Surface Finish" GridPane.rowIndex="4"/>
+                            <ComboBox fx:id="surfaceFinishCombo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+
+                <TitledPane fx:id="inksCoatings" text="Inks &amp; Coatings" expanded="true">
+                    <content>
+                        <GridPane hgap="10" vgap="8">
+                            <Label text="Soldermask" GridPane.rowIndex="1"/>
+                            <ComboBox fx:id="soldermaskCombo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Soldermask Sides" GridPane.rowIndex="2"/>
+                            <ComboBox fx:id="soldermaskSideCombo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Legend" GridPane.rowIndex="3"/>
+                            <ComboBox fx:id="legendCombo" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label text="Legend Sides" GridPane.rowIndex="4"/>
+                            <ComboBox fx:id="legendSideCombo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Carbon Ink" GridPane.rowIndex="5"/>
+                            <ComboBox fx:id="carbonInkCombo" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Carbon Ink Sides" GridPane.rowIndex="6"/>
+                            <ComboBox fx:id="carbonInkSideCombo" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+                            <Label text="Peelable Mask" GridPane.rowIndex="7"/>
+                            <ComboBox fx:id="peelableMaskCombo" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Peelable Mask Sides" GridPane.rowIndex="8"/>
+                            <ComboBox fx:id="peelableMaskSideCombo" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+                            <Label text="Via Fill / Plug" GridPane.rowIndex="9"/>
+                            <ComboBox fx:id="viaFillPlugCombo" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+
+                <TitledPane fx:id="qualityTesting" text="Quality &amp; Testing" expanded="true">
+                    <content>
+                        <GridPane hgap="10" vgap="8">
+
+                            <Label text="Electrical Test" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="electricalTestCombo" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                            <Label text="Test Points" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="testPointField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Quality Spec" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="qualitySpecCombo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="TDR Testing" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="tdrTestingCombo" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label text="First Article" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="firstArticleCombo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                            <Label text="Hi-Pot Testing" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="hiPotTestingCombo" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                            <Label text="ITAR" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="itarCombo" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+                        </GridPane>
+                    </content>
+                </TitledPane>
+
+            </VBox>
+
+            <!-- ================= COLUMN 3 ================= -->
+            <VBox spacing="20" HBox.hgrow="ALWAYS">
+
+                <TitledPane fx:id="specialProces" text="Special Process" expanded="true">
+                    <content>
+                        <GridPane hgap="10" vgap="8">
+                            <Label text="Plasma Desmear"/>
+                            <ComboBox fx:id="plasmaDesmearCombo" GridPane.columnIndex="1"/>
+
+                            <Label text="Aluminum Finish" GridPane.rowIndex="1"/>
+                            <ComboBox fx:id="aluminumFinishCombo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="HDI" GridPane.rowIndex="2"/>
+                            <ComboBox fx:id="hdiCombo" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                            <Label text="Multi Press" GridPane.rowIndex="3"/>
+                            <ComboBox fx:id="multiPressCombo" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label text="Gold Tab" GridPane.rowIndex="4"/>
+                            <ComboBox fx:id="goldTabCombo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+
+                <TitledPane fx:id="mechanicalFabrication" text="Mechanical &amp; Fabrication" expanded="true">
+                    <content>
+                        <GridPane hgap="10" vgap="8">
+                            <Label text="Smallest Hole"/>
+                            <TextField fx:id="smallestHoleField" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Hole Qty" GridPane.columnIndex="2"/>
+                            <TextField fx:id="holeCount" GridPane.columnIndex="3"/>
+
+                            <Label text="Edge Bevel" GridPane.rowIndex="1"/>
+                            <ComboBox fx:id="edgeBevelCombo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                            <Label text="Slots" GridPane.rowIndex="2"/>
+                            <TextField fx:id="slotsField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Slot Qty" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                            <TextField fx:id="slotCount" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                            <Label text="Counter Sink" GridPane.rowIndex="3"/>
+                            <ComboBox fx:id="counterSinkCombo" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                            <Label text="Counter Bore" GridPane.rowIndex="4"/>
+                            <ComboBox fx:id="counterBoreCombo" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                            <Label text="Edge Plating" GridPane.rowIndex="5"/>
+                            <ComboBox fx:id="edgePlatingCombo" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                            <Label text="Scoring" GridPane.rowIndex="6"/>
+                            <ComboBox fx:id="scoringCombo" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Score Qty" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+                            <TextField fx:id="scorecount" GridPane.rowIndex="6" GridPane.columnIndex="3"/>
+
+                            <Label text="Break-apart" GridPane.rowIndex="7"/>
+                            <ComboBox fx:id="breakApartCombo" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+                
+                <TitledPane fx:id="notes" text="Notes" expanded="true">
+                    <content>
+                        <GridPane hgap="10" vgap="8">
+                            <Label text="Customer Note" GridPane.rowIndex="1"/>
+                            <TextArea fx:id="customerNote" layoutX="10.0" GridPane.rowIndex="1" GridPane.columnIndex="1" layoutY="10.0" 
+                                      prefHeight="100" prefWidth="350.0" promptText="Enter customer notes here..." wrapText="true"/>
+                            
+                            <Label text="Internal Note" GridPane.rowIndex="2"/>
+                            <TextArea fx:id="internalNote" layoutX="10.0" GridPane.rowIndex="2" GridPane.columnIndex="1" layoutY="10.0" 
+                                      prefHeight="100" prefWidth="350.0" promptText="Enter internal notes here..." wrapText="true"/>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+                
+                <Button text="Save" fx:id="saveButton"/>
+            </VBox>
+
+        </HBox>
+    </content>
+</ScrollPane>

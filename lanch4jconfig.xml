@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>L:\Development\QuoteApp\target\QuoteApp-1.0-SNAPSHOT.jar</jar>
+  <outfile>L:\Development\QuoteApp\dist\QuotationApplication.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon></icon>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion></minVersion>
+    <maxVersion></maxVersion>
+    <opt>--module-path=L:\Development\QuoteApp\target\libs</opt>
+    <opt>--add-exports=javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED</opt>
+    <opt>--add-exports=javafx.graphics/com.sun.javafx.sg.prism.web=ALL-UNNAMED</opt>
+    <opt>--add-modules=javafx.controls,javafx.fxml,javafx.web</opt>
+  </jre>
+</launch4jConfig>

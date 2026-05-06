@@ -12,6 +12,8 @@ import org.w3c.dom.Document;
 import javax.xml.parsers.*;
 import javax.xml.xpath.*;
 import java.io.File;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.NodeList;
 
 public class XmlContextUtils {
@@ -60,11 +62,13 @@ public class XmlContextUtils {
             return null;
         }
     }
-    
+
     public static Double findMin(XmlContextUtils xml, String xpathExpr) {
 
         NodeList nodes = xml.getNodes(xpathExpr);
-        if (nodes == null) return null;
+        if (nodes == null) {
+            return null;
+        }
 
         Double min = null;
 
@@ -82,15 +86,61 @@ public class XmlContextUtils {
     }
 
     private static Double parseDoubleSafe(String val) {
-        if (val == null) return null;
-        val = val.trim();
-        if (val.equalsIgnoreCase("unknown") || val.equalsIgnoreCase("NR"))
+        if (val == null) {
             return null;
+        }
+        val = val.trim();
+        if (val.equalsIgnoreCase("unknown") || val.equalsIgnoreCase("NR")) {
+            return null;
+        }
         try {
             return Double.parseDouble(val);
         } catch (Exception e) {
             return null;
         }
     }
-}
 
+    public static Object getValue(JSONObject json, String path) {
+
+        if (json == null || path == null || path.isEmpty()) {
+            return null;
+        }
+
+        String[] keys = path.split("\\.");
+        Object current = json;
+
+        for (String key : keys) {
+
+            if (current instanceof JSONObject) {
+                current = ((JSONObject) current).opt(key);
+            } else if (current instanceof JSONArray) {
+                try {
+                    int index = Integer.parseInt(key);
+                    current = ((JSONArray) current).opt(index);
+                } catch (NumberFormatException e) {
+                    return null; // invalid index
+                }
+            } else {
+                return null;
+            }
+
+            if (current == null) {
+                return null;
+            }
+        }
+
+        return current;
+    }
+
+    public double getDouble(String xpathExpr) {
+        try {
+            return (Double) xpath.evaluate(
+                    xpathExpr,
+                    document,
+                    XPathConstants.NUMBER
+            );
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+}

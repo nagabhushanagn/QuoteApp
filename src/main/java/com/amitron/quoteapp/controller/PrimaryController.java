@@ -28,35 +28,55 @@ import com.amitron.quoteapp.utils.I8JobSubmitUtils;
 import java.sql.SQLException;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class PrimaryController {
 
-    @FXML private VBox formPane;
-    @FXML private TextField selectedFile;
-    @FXML private TextField fdId;
-    @FXML private TextField custName;
-    @FXML private TextField custCode;
-    @FXML private TextField partNo;
-    @FXML private CheckBox isItar;
-    @FXML private Button submit;
-    
-    @FXML private TableView<SubmitRow> table;
-    @FXML private TableColumn<SubmitRow, Integer> colI8;
-    @FXML private TableColumn<SubmitRow, Integer> colFD;
-    @FXML private TableColumn<SubmitRow, String> colCustName;
-    @FXML private TableColumn<SubmitRow, String> colCustCode;
-    @FXML private TableColumn<SubmitRow, String> colOrig;
-    @FXML private TableColumn<SubmitRow, String> colPart;
-    @FXML private TableColumn<SubmitRow, Boolean> colItar;
-    @FXML private TableColumn<SubmitRow, String> colProg;
-    @FXML private TableColumn<SubmitRow, String> colTime;
-    
+    @FXML
+    private VBox formPane;
+    @FXML
+    private TextField selectedFile;
+    @FXML
+    private TextField fdId;
+    @FXML
+    private TextField custName;
+    @FXML
+    private TextField custCode;
+    @FXML
+    private TextField partNo;
+    @FXML
+    private CheckBox isItar;
+    @FXML
+    private Button submit;
+
+    @FXML
+    private TableView<SubmitRow> table;
+    @FXML
+    private TableColumn<SubmitRow, Integer> colI8;
+    @FXML
+    private TableColumn<SubmitRow, Integer> colFD;
+    @FXML
+    private TableColumn<SubmitRow, String> colCustName;
+    @FXML
+    private TableColumn<SubmitRow, String> colCustCode;
+    @FXML
+    private TableColumn<SubmitRow, String> colOrig;
+    @FXML
+    private TableColumn<SubmitRow, String> colPart;
+    @FXML
+    private TableColumn<SubmitRow, Boolean> colItar;
+    @FXML
+    private TableColumn<SubmitRow, String> colProg;
+    @FXML
+    private TableColumn<SubmitRow, String> colTime;
+
     private final FileChooserService fileChooserService = new FileChooserService();
     private final FileSelectionModel model = new FileSelectionModel();
-    
-    
+
     @FXML
     public void initialize() {
         table.getColumns().forEach(col -> col.setReorderable(false));// desable table column reorder
@@ -71,13 +91,11 @@ public class PrimaryController {
         colItar.setCellValueFactory(new PropertyValueFactory<>("itar"));
         colProg.setCellValueFactory(new PropertyValueFactory<>("progress"));
         colTime.setCellValueFactory(new PropertyValueFactory<>("submitTime"));
-        
+
         refreshTable();//refresh table
-        
-        
-        
+
         colProg.setCellFactory(column -> new ProgressCell());//Progress cell coloring
-        
+
         //Check box for itar column
         colItar.setCellValueFactory(cellData -> cellData.getValue().itarProperty());
         colItar.setCellFactory(CheckBoxTableCell.forTableColumn(colItar));
@@ -98,11 +116,11 @@ public class PrimaryController {
     @FXML
     private void onSubmitClicked() {
         boolean is_allFieldsOk = UIUtils.validateSubmitFields(selectedFile, custName, custCode, fdId, partNo);
-        
-        if(!is_allFieldsOk){
+
+        if (!is_allFieldsOk) {
             return;
         }
-        
+
         Task<Integer> task = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
@@ -112,17 +130,17 @@ public class PrimaryController {
                     return null;
                 }
                 int i8Id = Integer.parseInt(i8IdString);
-                
+
                 I8JobSubmitService.insertSubmitData(
-                            i8Id,
-                            fdId,
-                            custName,
-                            custCode,
-                            selectedFile,
-                            partNo,
-                            isItar
-                    );
-                
+                        i8Id,
+                        fdId,
+                        custName,
+                        custCode,
+                        selectedFile,
+                        partNo,
+                        isItar
+                );
+
                 I8JobSubmitService.createToQuoteStructure(selectedFile, fdId, isItar);
                 return i8Id;
             }
@@ -142,7 +160,7 @@ public class PrimaryController {
                     if (i8Id != null) {
                         refreshTable();
                         UIUtils.showSuccess("Submission successful! I8_ID : " + i8Id);
-                    }else{
+                    } else {
                         UIUtils.showError("Job submit NOT successful");
                     }
                 },
@@ -151,11 +169,10 @@ public class PrimaryController {
                     UIUtils.showError("Submission failed:\n" + ex.getMessage());
                 }
         );
-        
+
         formPane.setVisible(false);
         formPane.setManaged(false);
     }
-
 
     // Browse button (already working)
     @FXML
@@ -213,22 +230,55 @@ public class PrimaryController {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private void onCopyClicked() throws Exception {
-        if(formPane.isVisible()){
+        if (formPane.isVisible()) {
             formPane.setVisible(false);
             formPane.setManaged(false);
         }
         I8JobSubmitService.copyReportService(table);
     }
-    
+
     @FXML
     private void onDeleteClicked() throws Exception {
-        if(formPane.isVisible()){
+        if (formPane.isVisible()) {
             formPane.setVisible(false);
             formPane.setManaged(false);
         }
         I8JobSubmitService.deleteDataService(table);
+    }
+
+    @FXML
+    private void onViewClicked() {
+        try {
+            SubmitRow selected = table.getSelectionModel().getSelectedItem();
+
+            if (selected == null) {
+                UIUtils.showError("Job not Selected!!!");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/amitron/quoteapp/ViewWindow.fxml")
+            );
+
+            Parent root = loader.load();
+
+            //GET CONTROLLER
+            ViewController controller = loader.getController();
+
+            //PASS DATA
+            controller.setJobData(selected);
+            Stage stage = new Stage();
+            stage.setTitle("View Details: I8- " +selected.i8IdProperty().get());
+            stage.setWidth(1300);
+            stage.setHeight(960);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

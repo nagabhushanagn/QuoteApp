@@ -14,10 +14,12 @@ import java.io.File;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.sql.SQLException;
+import java.util.Map;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.json.JSONObject;
 
 /**
  *
@@ -25,12 +27,11 @@ import javafx.scene.control.TextField;
  */
 public class I8JobSubmitService implements Constants {
 
-    
     public static String submitJob(TextField selectedFilePath) throws Exception {
         File selectedFile = new File(selectedFilePath.getText());
         return I8JobSubmitUtils.submitJob(selectedFile);
     }
-    
+
     public static void insertSubmitData(int i8Id, TextField freshdeskId, TextField custName,
             TextField custCode, TextField selectedFilePath, TextField partNo, CheckBox itar) throws SQLException {
 
@@ -42,16 +43,15 @@ public class I8JobSubmitService implements Constants {
         String partNm = partNo.getText();
         boolean is_itar = itar.isSelected();
         I8Progress progress = I8Progress.NEW;
-        
-        I8JobSubmitRepository.insertSubmitData(i8Id, fdId, customerName, customerCode, 
+
+        I8JobSubmitRepository.insertSubmitData(i8Id, fdId, customerName, customerCode,
                 originalData, progress, partNm, is_itar);
-        
 
     }
 
     public static void createToQuoteStructure(TextField selectedFile, TextField fdId, CheckBox itar) throws Exception {
-        I8JobSubmitUtils.createToQuoteStructure(new File(selectedFile.getText()), 
-                Integer.parseInt(fdId.getText()), 
+        I8JobSubmitUtils.createToQuoteStructure(new File(selectedFile.getText()),
+                Integer.parseInt(fdId.getText()),
                 itar.isSelected());
     }
 
@@ -88,21 +88,40 @@ public class I8JobSubmitService implements Constants {
             UIUtils.showError("Please select a row to delete!!!");
             return;
         }
-        
+
         int i8Id = quoteData.i8IdProperty().get();
         ButtonType confirm = UIUtils.showConfirmation("Delete record with i8_id = " + i8Id + "?");
-        
-        if(confirm == ButtonType.OK){
+
+        if (confirm == ButtonType.OK) {
             boolean deleted = I8JobSubmitRepository.deleteRow(i8Id);
             if (deleted) {
                 table.getItems().remove(quoteData);
                 UIUtils.showSuccess("Record deleted successfully");
-            }else{
+            } else {
                 UIUtils.showError("Delete failed or record not found");
             }
         }
-        
-    
+
+    }//JSONObject
+
+    public static JSONObject getQedJsonData(int i8) throws SQLException {
+        return I8JobSubmitRepository.getQedJsonFromDb(i8);
+
     }
 
+    //to save quote data in to quote_data table
+    public static void saveOrUpdateQuoteData(int submitId, String optimizerData, String savedData) {
+        I8JobSubmitRepository.saveOrUpdateQuoteData(submitId, optimizerData, savedData);
+    }
+
+    //get saved data back to UI
+    public static Map<String, String> getQuoteData(int submitId) {
+        return I8JobSubmitRepository.getQuoteData(submitId);
+    }
+
+    public static void saveOrUpdateOptimizerData(int rowId, String optimizerData) {
+        I8JobSubmitRepository.saveOrUpdateOptimizerData(rowId, optimizerData);
+    }
+    
+    
 }

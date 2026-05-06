@@ -14,7 +14,8 @@ public interface Constants {
     String PASSWORD = "";
     String HOTFOLDER_PATH = "I:\\Hotfolders";
     String QED_PATH = "I:\\Work";
-    String QUOTE_DIR = "S:\\Quotes";
+    //String QUOTE_DIR = "L:\\I8_test";//testing
+    String QUOTE_DIR = "S:\\Quotes";//production
     String[] QUOTE_STRUCTURE = {"01_RFQ_Input", "02_Technical_Data", "03_Estimating",
         "04_Quote_Working", "05_Final_Quote", "06_Approvals", "07_Communications"};
     String JSON_TEMPLATE = "S:\\Software\\AmitronApplications\\Integr8torSubmit\\empty_template.json";
