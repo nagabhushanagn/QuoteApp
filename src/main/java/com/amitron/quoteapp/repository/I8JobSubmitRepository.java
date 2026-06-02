@@ -83,7 +83,7 @@ public class I8JobSubmitRepository implements Constants {
         String sql
                 = "SELECT i8_id "
                 + "FROM I8_Submit "
-                + "WHERE progress IN ('N','A','R','S','P') "
+                + "WHERE progress IN ('N','A','R') "
                 + "ORDER BY submit_time DESC "
                 + "LIMIT 100";
 
@@ -355,4 +355,104 @@ public class I8JobSubmitRepository implements Constants {
             e.printStackTrace();
         }
     }
+
+    public static void saveOrUpdateStackupData(int submitId, String satckupData) {
+
+        try (Connection conn = DriverManager.getConnection(JDBC_URL)) {
+
+            //Check if record exists
+            String checkSql = "SELECT id FROM quote_data WHERE submit_id = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setInt(1, submitId);
+
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                //UPDATE only optimizer_data
+                String updateSql = "UPDATE quote_data "
+                        + "SET stackup_data = ?, "
+                        + "updated_on = CURRENT_TIMESTAMP "
+                        + "WHERE submit_id = ?";
+
+                PreparedStatement updateStmt = conn.prepareStatement(updateSql);
+                updateStmt.setString(1, satckupData);
+                updateStmt.setInt(2, submitId);
+
+                updateStmt.executeUpdate();
+
+                System.out.println("stackup data UPDATED");
+
+            } else {
+                //INSERT (optimizer only, saved_data null)
+                String insertSql = "INSERT INTO quote_data "
+                        + "(submit_id, stackup_data) "
+                        + "VALUES (?, ?)";
+
+                PreparedStatement insertStmt = conn.prepareStatement(insertSql);
+                insertStmt.setInt(1, submitId);
+                insertStmt.setString(2, satckupData);
+
+                insertStmt.executeUpdate();
+
+                System.out.println("Stackup data INSERTED");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String loadStackupData(int rowId) {
+        try (Connection conn = DriverManager.getConnection(JDBC_URL)) {
+            String sql = "SELECT stackup_data FROM quote_data WHERE submit_id = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, rowId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("stackup_data");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    public static Map<String, String> getCalculationSourceData(int submitId) {
+
+        Map<String, String> data = new HashMap<>();
+
+        String sql = "SELECT optimizer_data, "
+                + "saved_data, "
+                + "stackup_data "
+                + "FROM quote_data "
+                + "WHERE submit_id = ?";
+
+        try (Connection conn
+                = DriverManager.getConnection(JDBC_URL); PreparedStatement ps
+                = conn.prepareStatement(sql)) {
+            ps.setInt(1, submitId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                data.put("optimizer", rs.getString("optimizer_data"));
+
+                data.put("saved", rs.getString("saved_data"));
+
+                data.put("stackup", rs.getString("stackup_data"));
+            }
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+
+        return data;
+    }
+
+    
 }

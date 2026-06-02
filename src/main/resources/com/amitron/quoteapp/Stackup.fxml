@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.amitron.quoteapp.controller.StackupController">
+
+    <children>
+
+        <!-- TOP -->
+        <HBox spacing="20" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10">
+
+            <Label text="Layer Count"/>
+            <TextField fx:id="layerCountField"  prefWidth="60"/>
+            <Label text="Material"/>
+            <TextField fx:id="materialField" prefWidth="220"/>
+            <Button text="Save Stackup" onAction="#saveStackup"/>
+
+        </HBox>
+
+        <!-- MAIN -->
+        <ScrollPane fitToWidth="true"
+                    AnchorPane.topAnchor="50"
+                    AnchorPane.bottomAnchor="10"
+                    AnchorPane.leftAnchor="10"
+                    AnchorPane.rightAnchor="10">
+
+            <content>
+
+                <StackPane>
+
+                    <!-- MAIN GRID -->
+                    <GridPane fx:id="stackGrid"
+                              hgap="10"
+                              vgap="2"
+                              prefWidth="900"/>
+
+                    <!-- DRILL OVERLAY -->
+                    <Pane fx:id="drillOverlay"
+                          mouseTransparent="true"/>
+
+                </StackPane>
+
+            </content>
+
+        </ScrollPane>
+
+    </children>
+</AnchorPane>

@@ -25,6 +25,9 @@ public class ViewController {
 
     private QuoteOptimizerController optimizerController;
     private I8DataController i8DataController;
+    private StackupController stackupController;
+    private CalculationController calculationController;
+
     private SubmitRow jobData;
     @FXML
     private TabPane mainTabPane;
@@ -36,11 +39,15 @@ public class ViewController {
     private Tab i8DataTab;
     @FXML
     private Tab pdfViewerTab;
+    @FXML
+    private Tab stackupTab;
+    @FXML
+    private Tab calculationTab;
 
     private boolean optimizerLoaded = false;
 
     @FXML
-    public void initialize() { 
+    public void initialize() {
         panelOptimizeTab.setOnSelectionChanged(event -> {
             if (panelOptimizeTab.isSelected() && !optimizerLoaded) {
                 loadOptimizerUI();
@@ -53,10 +60,22 @@ public class ViewController {
                 loadI8DataUI();
             }
         });
-        
+
         pdfViewerTab.setOnSelectionChanged(event -> {
-            if (pdfViewerTab.isSelected() ) {
+            if (pdfViewerTab.isSelected()) {
                 loadI8Pdf();
+            }
+        });
+
+        stackupTab.setOnSelectionChanged(event -> {
+            if (stackupTab.isSelected()) {
+                loadStackupUI();
+            }
+        });
+
+        calculationTab.setOnSelectionChanged(event -> {
+            if (calculationTab.isSelected()) {
+                loadCalculationUI();
             }
         });
     }
@@ -106,17 +125,17 @@ public class ViewController {
                 if (qed != null && !qed.isEmpty()) {
                     optimizerController.setQedJson(qed);
                 }
-                
+
                 //DELAY JSON LOAD (ensures NOTHING overrides it)
                 Platform.runLater(() -> {
                     Map<String, String> dbData = I8JobSubmitService.getQuoteData(jobData.getRowId());
-                    
+
                     if (dbData.get("optimizer") != null && optimizerController != null) {//load optimizer
                         optimizerController.loadOptimizerJson(dbData.get("optimizer"));
                         optimizerController.runOptimizer();// re-run optimizer to render UI
                     }
                 });
-                
+
             }
 
         } catch (Exception e) {
@@ -170,13 +189,62 @@ public class ViewController {
             pdfViewerTab.setContent(ui);
 
             PdfViewerController controller = loader.getController();
-            
+
             if (jobData != null) {
                 int i8Id = jobData.i8IdProperty().get();
                 // passing pdf
                 controller.loadPdf("I:/Work/" + i8Id + "/work/reports/I8QuotationReport_" + i8Id + ".pdf");
             }
             System.out.println("I8 pdf Loaded");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadStackupUI() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/amitron/quoteapp/Stackup.fxml")
+            );
+
+            Parent ui = loader.load();
+            stackupTab.setContent(ui);
+
+            stackupController = loader.getController();
+
+            if (jobData != null) {
+                stackupController.setJobData(jobData);
+
+                Platform.runLater(() -> {
+                    Map<String, String> dbData
+                            = I8JobSubmitService.getQuoteData(jobData.getRowId());
+
+                    if (dbData.get("saved") != null) {
+                        stackupController.loadJson(dbData.get("saved"));
+                    }
+                });
+            }
+
+            System.out.println("Stackup UI Loaded");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCalculationUI() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/amitron/quoteapp/CalculationTab.fxml"));
+            Parent ui = loader.load();
+            calculationTab.setContent(ui);
+            calculationController = loader.getController();
+
+            if (jobData != null) {
+                calculationController.setJobData(jobData);
+            }
+
+            System.out.println("Calculation UI Loaded");
 
         } catch (Exception e) {
             e.printStackTrace();

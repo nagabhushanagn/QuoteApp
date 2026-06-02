@@ -123,5 +123,8 @@ public class I8JobSubmitService implements Constants {
         I8JobSubmitRepository.saveOrUpdateOptimizerData(rowId, optimizerData);
     }
     
+    public static Map<String, String> getCalculationSourceData(int submitId) {
+        return I8JobSubmitRepository.getCalculationSourceData(submitId);
+    }
     
 }

@@ -16,6 +16,7 @@ public enum I8Progress {
     RUNNING("R", "Running"),
     STOPPED("S", "Stopped"),
     KILLED("K", "Killed"),
+    ERROR("E", "Error"),
     SUSPENDED("P", "Suspended");
 
     private final String code;      // what Integr8tor sends

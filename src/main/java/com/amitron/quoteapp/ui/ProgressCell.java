@@ -42,8 +42,15 @@ public class ProgressCell extends TableCell<SubmitRow, String> {
                 break;
 
             case "Stopped":
+                setStyle("-fx-background-color: #FFA0A0;"); // light red
+                break;
             case "Killed":
+                setStyle("-fx-background-color: #FFA0A0;"); // light red
+                break;
             case "Suspended":
+                setStyle("-fx-background-color: #FFA0A0;"); // light red
+                break;
+            case "Error":
                 setStyle("-fx-background-color: #FFA0A0;"); // light red
                 break;
 

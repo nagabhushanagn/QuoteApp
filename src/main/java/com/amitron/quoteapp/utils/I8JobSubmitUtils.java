@@ -171,7 +171,17 @@ public class I8JobSubmitUtils implements Constants {
             if (statusChar == null) {
                 continue;
             }
-
+            
+            //TO handle completed status for inturupted job in Integrater
+            if (statusChar != null && statusChar.matches("C")) {//completed
+                String qedReportPath = QED_PATH + File.separator + i8Id + File.separator + "work\\reports\\";
+                File qedpdf = new File(qedReportPath + "I8QuotationReport_" + i8Id + ".pdf");
+                File qedxml = new File(qedReportPath + "qed.xml");
+                if(!qedpdf.exists() && !qedxml.exists()){//not exists means process is inturupted
+                    statusChar = "E"; //integr8tor error
+                }
+            }
+            
             I8Progress newProgress = I8Progress.fromCode(statusChar);
             I8Progress oldProgress = I8JobSubmitRepository.getProgressFromDb(i8Id);
 

@@ -28,6 +28,12 @@
                 <Tab fx:id="pdfViewerTab" text="I8 Report" closable="false">
                 </Tab>
                 
+                <!-- Stackup Tab-->
+                <Tab fx:id="stackupTab" text="Stackup" closable="false"/>
+                
+                <!-- Calculation Tab -->
+                <Tab fx:id="calculationTab" text="Calculation" closable="false"/>
+                
             </tabs>
 
         </TabPane>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.amitron.quoteapp.controller.CalculationController"
+            fitToWidth="true">
+
+    <content>
+
+        <VBox spacing="15"
+              style="-fx-background-color:white;">
+
+            <padding>
+                <Insets top="15"
+                        right="15"
+                        bottom="15"
+                        left="15"/>
+            </padding>
+
+            <!-- ===================================== -->
+            <!-- TOP BUTTON BAR -->
+            <!-- ===================================== -->
+
+            <HBox spacing="10"
+                  alignment="CENTER_LEFT">
+
+                <Label text="Version"
+                       style="-fx-font-weight:bold;"/>
+
+                <ComboBox fx:id="versionCombo"
+                          prefWidth="120"/>
+
+                <Button text="Save"
+                        onAction="#onSave"/>
+
+                <Button text="Save As Version"
+                        onAction="#onSaveAsVersion"/>
+                
+                <Label fx:id="masterPriceVersionLable" 
+                       text="Master Price Version: "
+                       style="-fx-font-weight:bold;"/>
+
+            </HBox>
+
+            <!-- ===================================== -->
+            <!-- SECTION A + SECTION B -->
+            <!-- ===================================== -->
+
+            <HBox spacing="20">
+
+                <!-- ================================= -->
+                <!-- SECTION A -->
+                <!-- ================================= -->
+
+                <VBox spacing="10"
+                      prefWidth="500"
+                      style="-fx-border-color:#D0D0D0;
+                             -fx-border-radius:5;
+                             -fx-background-color:#FAFAFA;
+                             -fx-padding:12;">
+
+                    <Label text="SECTION A - PANEL COST"
+                           style="-fx-font-size:16px;
+                                  -fx-font-weight:bold;"/>
+
+                    <GridPane fx:id="priceGrid"
+                              hgap="10"
+                              vgap="8"/>
+
+                </VBox>
+
+                <!-- ================================= -->
+                <!-- SECTION B -->
+                <!-- ================================= -->
+
+                <VBox spacing="10"
+                      prefWidth="350"
+                      style="-fx-border-color:#D0D0D0;
+                             -fx-border-radius:5;
+                             -fx-background-color:#FAFAFA;
+                             -fx-padding:12;">
+
+                    <Label text="SECTION B - NRC"
+                           style="-fx-font-size:16px;
+                                  -fx-font-weight:bold;"/>
+
+                    <HBox spacing="10">
+
+                        <Button text="+ Add NRC"
+                                onAction="#onAddNrc"/>
+
+                    </HBox>
+
+                    <VBox fx:id="nrcContainer"
+                          spacing="6"/>
+
+                    <Separator/>
+
+                    <HBox spacing="10"
+                          alignment="CENTER_LEFT">
+
+                        <Label text="Sum Of B"
+                               style="-fx-font-weight:bold;"/>
+
+                        <TextField fx:id="sumOfBField"
+                                   editable="false"
+                                   prefWidth="120"
+                                   alignment="CENTER_RIGHT"
+                                   style="-fx-control-inner-background:#F4F4F4;"/>
+
+                    </HBox>
+
+                </VBox>
+
+            </HBox>
+
+            <!-- ===================================== -->
+            <!-- QUANTITY TABLE -->
+            <!-- ===================================== -->
+
+            <VBox spacing="10"
+                  style="-fx-border-color:#D0D0D0;
+                         -fx-border-radius:5;
+                         -fx-background-color:#FAFAFA;
+                         -fx-padding:12;">
+
+                <Label text="QUANTITY PRICING"
+                       style="-fx-font-size:16px;
+                              -fx-font-weight:bold;"/>
+
+                <HBox spacing="10">
+
+                    <Button text="+ Add Row"
+                            onAction="#onAddRow"/>
+
+                    <Button text="- Delete Selected"
+                            onAction="#onDeleteSelectedRow"/>
+
+                </HBox>
+
+                <TableView fx:id="quantityTable"
+                           prefHeight="350">
+
+                    <columns>
+
+                        <TableColumn fx:id="qtyCol"
+                                     text="Quantity"
+                                     prefWidth="100"/>
+
+                        <TableColumn fx:id="deliveryCol"
+                                     text="Delivery"
+                                     prefWidth="120"/>
+
+                        <TableColumn fx:id="launchCol"
+                                     text="Launching Panel"
+                                     prefWidth="130"/>
+
+                        <TableColumn fx:id="unitPriceCol"
+                                     text="Unit Price(A)"
+                                     prefWidth="120"/>
+
+                        <TableColumn fx:id="nrcCol"
+                                     text="NRC(B)+Delivery"
+                                     prefWidth="150"/>
+
+                        <TableColumn fx:id="calcPriceCol"
+                                     text="Calculated Price"
+                                     prefWidth="140"/>
+
+                        <TableColumn fx:id="discountCol"
+                                     text="Discount %"
+                                     prefWidth="110"/>
+
+                        <TableColumn fx:id="finalPriceCol"
+                                     text="Final Price"
+                                     prefWidth="130"/>
+
+                    </columns>
+
+                </TableView>
+
+            </VBox>
+
+        </VBox>
+
+    </content>
+
+</ScrollPane>
